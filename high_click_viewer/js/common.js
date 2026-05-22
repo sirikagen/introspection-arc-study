@@ -1,3 +1,10 @@
+function createChip(text, className = "participant-chip") {
+  const chip = document.createElement("span");
+  chip.className = className;
+  chip.textContent = text;
+  return chip;
+}
+
 async function fetchParticipants() {
   const res = await fetch("data/participants.json");
   if (!res.ok) {
