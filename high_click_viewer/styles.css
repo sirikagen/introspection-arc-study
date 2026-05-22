@@ -139,6 +139,10 @@ h1 {
   background: #d4e6f1;
 }
 
+.tile-link.green {
+  background: #d1e9d8;
+}
+
 .tile-link:hover {
   transform: translateY(-2px);
   border-color: rgba(211, 84, 42, 0.65);
