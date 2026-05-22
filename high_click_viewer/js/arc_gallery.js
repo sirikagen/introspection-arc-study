@@ -70,17 +70,13 @@ function buildTaskId(fileName) {
 }
 
 async function fetchDirectoryListing(directoryUrl) {
-  const res = await fetch(directoryUrl, { cache: "no-store" });
+  const indexUrl = directoryUrl.replace(/\/?$/, "/") + "index.json";
+  const res = await fetch(indexUrl, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error(`Unable to load directory listing for ${directoryUrl} (HTTP ${res.status})`);
+    throw new Error(`Unable to load directory index for ${directoryUrl} (HTTP ${res.status})`);
   }
-
-  const html = await res.text();
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return [...doc.querySelectorAll("a[href]")]
-    .map((anchor) => anchor.getAttribute("href") || "")
-    .filter((href) => href.toLowerCase().endsWith(".json"))
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+  const files = await res.json();
+  return files.filter((f) => f.toLowerCase().endsWith(".json") && f !== "index.json");
 }
 
 async function fetchTaskPayload(task) {
