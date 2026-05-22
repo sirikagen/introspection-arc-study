@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clicking Behaviour and Semantics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Chart base (mirrors demographics.html) ─────────── */
+      .demo-chart         { display: grid; gap: 0.52rem; }
+      .demo-chart-row     { display: grid; grid-template-columns: 180px 1fr 90px; align-items: center; gap: 0.6rem; }
+      .demo-chart-label   { font-size: 0.83rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .demo-chart-track   { height: 22px; background: rgba(31,34,48,0.07); border-radius: 5px; overflow: hidden; }
+      .demo-chart-bar     { height: 100%; border-radius: 5px; }
+      .demo-chart-val     { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--muted); text-align: right; }
+      .demo-chart-n       { font-size: 0.72rem; opacity: 0.75; }
+
+      /* ── Comparison (two-bar per row) ───────────────────── */
+      .cmp-chart          { display: grid; gap: 0.9rem; }
+      .cmp-row            { display: grid; gap: 0.22rem; }
+      .cmp-row-label      { font-size: 0.84rem; font-weight: 600; }
+      .cmp-sub            { display: grid; grid-template-columns: 80px 1fr 60px; align-items: center; gap: 0.5rem; }
+      .cmp-tag            { font-size: 0.72rem; color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+      .cmp-track          { height: 17px; background: rgba(31,34,48,0.07); border-radius: 4px; overflow: hidden; }
+      .cmp-bar            { height: 100%; border-radius: 4px; }
+      .cmp-val            { font-family: "IBM Plex Mono", monospace; font-size: 0.76rem; text-align: right; }
+
+      /* ── Misc ───────────────────────────────────────────── */
+      .chart-title        { font-weight: 700; margin-bottom: 0.55rem; font-size: 0.9rem; }
+      .chart-note         { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+      .legend             { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.55rem; font-size: 0.8rem; }
+      .legend-item        { display: flex; align-items: center; gap: 0.35rem; }
+      .legend-dot         { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+      .charts-two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .charts-three-col   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+
+      /* ── Keyword grid ───────────────────────────────────── */
+      .kw-grid            { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
+      .kw-card            { border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.9); padding: 0.85rem; }
+      .kw-card-title      { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.45rem; }
+      .kw-keywords        { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.55rem; line-height: 1.5; }
+      .kw-metric-row      { display: grid; grid-template-columns: 90px 1fr 50px; align-items: center; gap: 0.45rem; margin-bottom: 0.25rem; }
+      .kw-metric-label    { font-size: 0.76rem; color: var(--muted); }
+      .kw-metric-track    { height: 14px; background: rgba(31,34,48,0.07); border-radius: 3px; overflow: hidden; }
+      .kw-metric-bar      { height: 100%; border-radius: 3px; }
+      .kw-metric-val      { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; text-align: right; }
+
+      /* ── Quote samples ──────────────────────────────────── */
+      .quote-grid         { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .quote-card         { border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.8); padding: 0.75rem; }
+      .quote-label        { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.3rem; }
+      .quote-text         { font-size: 0.83rem; line-height: 1.5; font-style: italic; color: var(--ink); }
+      .quote-meta         { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; font-family: "IBM Plex Mono", monospace; }
+
+      @media (max-width: 760px) {
+        .charts-two-col,
+        .charts-three-col,
+        .quote-grid       { grid-template-columns: 1fr; }
+        .demo-chart-row   { grid-template-columns: 120px 1fr 80px; }
+        .cmp-sub          { grid-template-columns: 70px 1fr 52px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">← Back to overview</a>
+
+      <header class="hero">
+        <p class="eyebrow">Introspection — ARC-AGI</p>
+        <h1>Clicking Behaviour and Semantics</h1>
+        <p class="subtitle">
+          Participants wrote a short description before submitting each puzzle attempt. This page
+          analyses how the content and structure of those descriptions relate to the clicking
+          patterns observed in the same attempt — and what changes between a first and final description
+          reveal about how understanding evolves.
+        </p>
+      </header>
+
+      <!-- ══════════════════════════════════════════════════
+           DATA NOTE
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">Dataset and Approach</h2>
+          <p class="section-intro">
+            Each puzzle attempt in the viewer includes a <em>first written description</em> (composed
+            before the first submission) and a <em>last written description</em> (optionally updated
+            after feedback). Semantic features were extracted from these free-text fields using
+            keyword matching across five categories: rule-oriented, colour-oriented, spatial, quantitative,
+            and epistemic uncertainty. These were then correlated with the clicking behaviour recorded
+            in the same attempt.
+          </p>
+          <p class="section-intro" style="margin-top:0.5rem;">
+            All 217 records represent <strong>solved, complete attempts</strong> from participants
+            in the high-click viewer. Because the sample is drawn primarily from high-click participants
+            (n = 156 HC, 61 non-HC), findings are best understood as describing this specific population
+            rather than all participants. Solve rate is 100% across all groups since only completed
+            attempts are included.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value">217</span>
+            <span class="stat-label">Solved puzzle attempts with semantic descriptions</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">21.9</span>
+            <span class="stat-label">Mean word count of first description (last: 23.7 words)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">64</span>
+            <span class="stat-label">Attempts where the description was revised (30% of total)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">69%</span>
+            <span class="stat-label">Of revised descriptions that grew longer (first → last word count)</span>
+          </div>
+        </div>
+
+        <div class="quote-grid">
+          <div class="quote-card">
+            <p class="quote-label">Short description — low specificity</p>
+            <p class="quote-text">"To make the correct output."</p>
+            <p class="quote-meta">5 words · attempt 2</p>
+          </div>
+          <div class="quote-card">
+            <p class="quote-label">Longer description — rule-oriented</p>
+            <p class="quote-text">"Make a yellow line connecting the red squares on the shortest path between them."</p>
+            <p class="quote-meta">14 words · attempt 1 · spatial + color + rule keywords</p>
+          </div>
+          <div class="quote-card">
+            <p class="quote-label">Revised first → last (elaborated)</p>
+            <p class="quote-text">
+              First: "Copy the input a number of times into a larger grid"<br>
+              Last: "copy the input into a larger grid repeatedly"
+            </p>
+            <p class="quote-meta">11 → 9 words · refined, not expanded</p>
+          </div>
+          <div class="quote-card">
+            <p class="quote-label">Revised first → last (restructured)</p>
+            <p class="quote-text">
+              First: "To make the correct output."<br>
+              Last: "Make the horizontal and vertical line using the input and then correct the cells using the colors."
+            </p>
+            <p class="quote-meta">5 → 18 words · large semantic expansion</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 1 — Description Length vs Clicking
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">1. Description Length and Clicking Volume</h2>
+          <p class="section-intro">
+            Does the length of a participant's description predict how many clicks they made?
+            First-description word count was binned into four groups and compared against the mean
+            total action count and mean undo count for each group.
+          </p>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Mean total actions — by first-description length</p>
+            <div id="chart-len-actions"></div>
+            <p class="chart-note">Non-linear relationship: medium-length descriptions (10–19 words) coincide with the highest action count.</p>
+          </div>
+          <div>
+            <p class="chart-title">Mean undo count — by first-description length</p>
+            <div id="chart-len-undos"></div>
+            <p class="chart-note">Very short descriptions have the highest undo rate; longer descriptions trend towards fewer corrections.</p>
+          </div>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            The relationship between description length and action count is <strong>non-linear</strong>: participants who write 10–19 words make the most clicks on average (98.8), while short (1–9 words: 82.6) and longer descriptions (20–39 words: 85.6) both coincide with fewer clicks.
+          </li>
+          <li class="finding-item">
+            Very brief descriptions (1–9 words) have the <strong>highest undo rate</strong> (2.9 mean undos), suggesting that participants who write less may be more uncertain in their clicking — editing and correcting more often.
+          </li>
+          <li class="finding-item">
+            Longer descriptions (40+ words) are associated with moderate action counts (93.8) and low undos (1.2), pointing to participants who plan carefully and execute with relatively few corrections.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 2 — Description Revision as a Signal
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">2. Revising the Description: A Strong Behavioural Marker</h2>
+          <p class="section-intro">
+            Participants could optionally update their written description after seeing the outcome.
+            64 of 216 attempts (30%) resulted in a changed description. This revision behaviour
+            shows a striking relationship with the clicking pattern in the same attempt.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value accent">53.3</span>
+            <span class="stat-label">Mean total actions — attempts where description was revised</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">106.5</span>
+            <span class="stat-label">Mean total actions — attempts where description was NOT revised</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">3.4</span>
+            <span class="stat-label">Mean undos — revised description group</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1.3</span>
+            <span class="stat-label">Mean undos — unchanged description group</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Total actions: revised vs unchanged description</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>Description revised</span>
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>Description unchanged</span>
+            </div>
+            <div id="chart-revised-actions"></div>
+          </div>
+          <div>
+            <p class="chart-title">Undo count: revised vs unchanged description</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>Description revised</span>
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>Description unchanged</span>
+            </div>
+            <div id="chart-revised-undos"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:0.25rem;">
+          <p class="chart-title">Description elaboration — first vs last word count (revised attempts only)</p>
+          <div id="chart-elab"></div>
+          <p class="chart-note">
+            Among the 64 revised attempts, 69% wrote more words in the final description (mean 19.0 → 25.0 words).
+            28% condensed their description (fewer words in the last).
+          </p>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            Participants who <strong>revised their description used half the total clicks</strong> compared to those who kept it the same (53.3 vs 106.5 actions) — the single strongest semantic–behavioural correlation in the dataset.
+          </li>
+          <li class="finding-item">
+            The revised group also has <strong>more than twice the undo rate</strong> (3.4 vs 1.3). Combining both signals: revision-associated attempts involve more active course-correction (undos) but substantially fewer total clicks — suggesting that participants who ultimately revise their understanding are more reflexive and more efficient, even within the same attempt.
+          </li>
+          <li class="finding-item">
+            When participants do revise, <strong>69% write more in the last description</strong> (mean word count grows from 19 to 25). A minority (28%) condense it — typically simplifying a first attempt's verbose speculation into a cleaner rule statement.
+          </li>
+          <li class="finding-item">
+            The unchanged-description group is dominated by high-click participants (HC), who tend to maintain consistent high-level descriptions across many exploratory clicks without needing to update their stated understanding. This suggests <strong>high-click behaviour is not accompanied by conceptual confusion</strong> — the description stays the same because the participant's interpretation of the puzzle remains stable.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 3 — Semantic Keyword Categories
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">3. Semantic Category and Clicking Behaviour</h2>
+          <p class="section-intro">
+            Five semantic categories were identified by keyword matching in the first written description:
+            rule/transformation language, colour language, spatial language, quantitative/count language,
+            and epistemic uncertainty language. For each category, clicking behaviour was compared
+            between attempts that do and do not contain those keywords.
+          </p>
+        </div>
+
+        <div class="kw-grid" id="kw-grid"></div>
+
+        <ul class="finding-list" style="margin-top:0.5rem;">
+          <li class="finding-item">
+            <strong>Spatial language → dramatically fewer undos:</strong> Attempts where participants describe positions (row, column, edge, diagonal, etc.) produce a mean of just 0.6 undos, compared to 2.8 for attempts without spatial language — a 4.7× difference. Spatial reasoning appears to guide more precise clicking.
+          </li>
+          <li class="finding-item">
+            <strong>Rule-oriented language → more total clicks:</strong> Descriptions that name transformation rules (mirror, repeat, rotate, extend…) are associated with 114 mean actions vs 80 without. These attempts involve complex spatial transformations that genuinely require more clicking, not just more exploration.
+          </li>
+          <li class="finding-item">
+            <strong>Colour language → fewer clicks than no-colour:</strong> Participants who explicitly name colours in their description (84.6 mean actions) click less than those who don't (100.0), suggesting that colour-oriented framings are associated with relatively tractable, visually guided tasks.
+          </li>
+          <li class="finding-item">
+            <strong>Uncertainty language → more clicks, fewer undos:</strong> Participants who express uncertainty (maybe, think, unsure, tried, wrong…) make more total actions (104.2 vs 89.0) but — counter-intuitively — fewer undos (0.9 vs 2.0). They persist without course-correcting, consistent with a trial-and-error rather than plan-and-execute strategy.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 4 — HC vs Non-HC Semantic Fingerprint
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">4. High-Click vs Non-HC Semantic Fingerprint</h2>
+          <p class="section-intro">
+            Do high-click participants describe puzzles differently from other participants?
+            The 156 HC attempts and 61 non-HC attempts in this dataset were compared on
+            description length, vocabulary richness, revision behaviour, and keyword category use.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value accent">23.0</span>
+            <span class="stat-label">HC mean first-description word count (non-HC: 18.2)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">65%</span>
+            <span class="stat-label">HC attempts with colour keywords (non-HC: 54%)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">40%</span>
+            <span class="stat-label">HC attempts with spatial keywords (non-HC: 34%)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">32%</span>
+            <span class="stat-label">HC descriptions revised (non-HC: 23%)</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Description length: HC vs non-HC</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>High-click (HC)</span>
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>Non-HC</span>
+            </div>
+            <div id="chart-hc-length"></div>
+            <p class="chart-note">HC participants write longer first and last descriptions on average.</p>
+          </div>
+          <div>
+            <p class="chart-title">Semantic keyword rate: HC vs non-HC (%)</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>High-click (HC)</span>
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>Non-HC</span>
+            </div>
+            <div id="chart-hc-kw"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:0.5rem;">
+          <p class="chart-title">Vocabulary richness (Type–Token Ratio): high vs low TTR</p>
+          <p class="section-intro" style="font-size:0.85rem; margin-bottom:0.65rem;">
+            TTR measures lexical diversity in the description — a high TTR (≥ 0.8) means most words
+            are unique; a low TTR (&lt; 0.8) indicates more repetition. Across the full dataset:
+          </p>
+          <div id="chart-ttr"></div>
+          <p class="chart-note">
+            High-TTR descriptions (n = 134) are associated with more actions (95.1) and more undos (2.5).
+            Low-TTR descriptions (n = 82) come with fewer clicks (83.7) and fewer undos (1.1),
+            suggesting that more repetitive descriptions correspond to simpler, more routine tasks.
+          </p>
+        </div>
+
+        <ul class="finding-list" style="margin-top:0.25rem;">
+          <li class="finding-item">
+            HC participants write descriptions that are <strong>26% longer on average</strong> (23.0 vs 18.2 words), and this extends to final descriptions as well (24.9 vs 19.7 words). They invest more in articulating their understanding.
+          </li>
+          <li class="finding-item">
+            HC participants use <strong>colour keywords more often</strong> (65% vs 54%), consistent with the finding that off-path errors in HC participants are primarily colour-selection errors — colour features are salient to them both in action and in description.
+          </li>
+          <li class="finding-item">
+            HC participants are <strong>more likely to revise their description</strong> (32% vs 23%), suggesting greater introspective engagement across the attempt — despite (or because of) their higher click volume.
+          </li>
+          <li class="finding-item">
+            HC and non-HC participants use rule-oriented keywords at nearly identical rates (30% vs 33%), suggesting that abstract transformation language is not what distinguishes high-click behaviour — the difference lies in <strong>richness and precision of description</strong>, not the type of reasoning expressed.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 5 — Description Degradation Across Retries
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">5. How Descriptions Change Across Retry Attempts</h2>
+          <p class="section-intro">
+            When a participant retries the same puzzle, does their description become more or less
+            structured? Descriptions from first, second, and third attempts were compared on
+            length and semantic keyword rates.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value">151</span>
+            <span class="stat-label">Attempt 1 records (22.9 mean words)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">51</span>
+            <span class="stat-label">Attempt 2 records (19.5 mean words — 15% shorter)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">14</span>
+            <span class="stat-label">Attempt 3 records (16.4 mean words — 28% shorter than attempt 1)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">0%</span>
+            <span class="stat-label">Attempt 3 attempts with spatial keywords (vs 44% on attempt 1)</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Mean description word count by attempt number</p>
+            <div id="chart-attempt-len"></div>
+            <p class="chart-note">Descriptions shorten monotonically with each retry.</p>
+          </div>
+          <div>
+            <p class="chart-title">Keyword category rates (%) by attempt number</p>
+            <div id="chart-attempt-kw"></div>
+            <p class="chart-note">
+              Rule, spatial, and count keywords all decline on retries. Uncertainty language peaks at
+              attempt 2 (12%) before dropping at attempt 3.
+            </p>
+          </div>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            Descriptions <strong>shorten with every retry</strong>: from 22.9 words on the first attempt to 19.5 on the second and 16.4 on the third — a 28% reduction from attempt 1 to attempt 3. Participants write less as they grow familiar with (or frustrated by) a puzzle.
+          </li>
+          <li class="finding-item">
+            <strong>Spatial keywords collapse completely by attempt 3</strong>: 44% of first attempts contain spatial language, 31% of second attempts, and 0% of third attempts. This is the sharpest semantic shift across retries and suggests that explicit spatial reasoning in descriptions is abandoned when the puzzle is not solved after two tries.
+          </li>
+          <li class="finding-item">
+            <strong>Rule-oriented language also declines</strong> (34% → 24% → 21%), indicating that participants on retries describe less in terms of abstract transformation rules and more in concrete or minimal terms — possibly a signal of cognitive offloading to the clicking process itself.
+          </li>
+          <li class="finding-item">
+            <strong>Uncertainty language peaks at attempt 2</strong> (12%, up from 9% at attempt 1), then falls at attempt 3 (7%). This non-monotonic pattern suggests that participants acknowledge uncertainty most explicitly after one failed attempt, but become more resigned — or more pragmatic — by a third try.
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <script>
+      // ── Data ──────────────────────────────────────────────────────
+      const LEN_ACTIONS = [
+        { label: '1–9 words',   n: 38,  mean: 82.6,  undos: 2.9 },
+        { label: '10–19 words', n: 80,  mean: 98.8,  undos: 1.5 },
+        { label: '20–39 words', n: 77,  mean: 85.6,  undos: 1.9 },
+        { label: '40–99 words', n: 21,  mean: 93.8,  undos: 1.2 },
+      ];
+
+      const REVISED_ACTIONS = [
+        { label: 'Description revised',   value: 53.3,  color: '#2f8f4e' },
+        { label: 'Description unchanged', value: 106.5, color: 'rgba(31,34,48,0.38)' },
+      ];
+      const REVISED_UNDOS = [
+        { label: 'Description revised',   value: 3.4,  color: '#2f8f4e' },
+        { label: 'Description unchanged', value: 1.3,  color: 'rgba(31,34,48,0.38)' },
+      ];
+
+      const ELAB = [
+        { label: 'Grew longer (69%)',    value: 44, pct: 69, color: '#2f8f4e' },
+        { label: 'Condensed (28%)',      value: 18, pct: 28, color: 'rgba(31,34,48,0.38)' },
+        { label: 'Same length (3%)',     value: 2,  pct: 3,  color: 'rgba(31,34,48,0.15)' },
+      ];
+
+      const KW_DATA = [
+        {
+          id: 'rule',
+          title: 'Rule / Transformation',
+          keywords: 'rule, pattern, transform, repeat, reflect, mirror, rotate, shift, extend, copy, replicate, scale',
+          yes_n: 67,  yes_actions: 114.3, yes_undos: 1.5,
+          no_n: 150,  no_actions: 79.8,   no_undos: 2.1,
+        },
+        {
+          id: 'color',
+          title: 'Colour',
+          keywords: 'color, colour, red, blue, green, yellow, grey, gray, black, white, orange, purple, pink',
+          yes_n: 135, yes_actions: 84.6,  yes_undos: 2.0,
+          no_n: 82,   no_actions: 100.0,  no_undos: 1.8,
+        },
+        {
+          id: 'spatial',
+          title: 'Spatial / Positional',
+          keywords: 'row, column, corner, edge, center, top, bottom, left, right, diagonal, horizontal, vertical, border, inside, outside',
+          yes_n: 83,  yes_actions: 85.2,  yes_undos: 0.6,
+          no_n: 134,  no_actions: 93.6,   no_undos: 2.8,
+        },
+        {
+          id: 'count',
+          title: 'Quantitative / Count',
+          keywords: 'one, two, three, four, five, six, count, number, times, each, every',
+          yes_n: 68,  yes_actions: 81.8,  yes_undos: 1.1,
+          no_n: 149,  no_actions: 94.3,   no_undos: 2.3,
+        },
+        {
+          id: 'unsure',
+          title: 'Epistemic Uncertainty',
+          keywords: "don't, not sure, maybe, think, guess, unsure, unclear, tried, wrong, correct, incorrect",
+          yes_n: 20,  yes_actions: 104.2, yes_undos: 0.9,
+          no_n: 197,  no_actions: 89.0,   no_undos: 2.0,
+        },
+      ];
+
+      const HC_LENGTH = [
+        { label: 'First description',  hc: 23.0, nhc: 18.2 },
+        { label: 'Last description',   hc: 24.9, nhc: 19.7 },
+      ];
+
+      const HC_KW = [
+        { label: 'Colour keywords',  hc: 65, nhc: 54 },
+        { label: 'Spatial keywords', hc: 40, nhc: 34 },
+        { label: 'Rule keywords',    hc: 30, nhc: 33 },
+        { label: 'Count keywords',   hc: 38, nhc: 36 },
+        { label: 'Uncertainty kws',  hc: 10, nhc:  8 },
+        { label: 'Desc revised',     hc: 32, nhc: 23 },
+      ];
+
+      const TTR_DATA = [
+        { label: 'High vocab richness (TTR ≥ 0.8)',  n: 134, actions: 95.1, undos: 2.5, color: '#2d7dd2' },
+        { label: 'Low vocab richness  (TTR < 0.8)',  n: 82,  actions: 83.7, undos: 1.1, color: 'rgba(31,34,48,0.38)' },
+      ];
+
+      const ATTEMPT_LEN = [
+        { label: 'Attempt 1', n: 151, words: 22.9 },
+        { label: 'Attempt 2', n: 51,  words: 19.5 },
+        { label: 'Attempt 3', n: 14,  words: 16.4 },
+      ];
+
+      const ATTEMPT_KW = [
+        { label: 'Attempt 1', rule: 34, spatial: 44, count: 32, unsure: 9  },
+        { label: 'Attempt 2', rule: 24, spatial: 31, count: 22, unsure: 12 },
+        { label: 'Attempt 3', rule: 21, spatial: 0,  count: 14, unsure: 7  },
+      ];
+
+      // ── Helpers ───────────────────────────────────────────────────
+      function barRow(label, value, maxVal, color, valStr, labelWidth) {
+        const pct = (value / maxVal * 100).toFixed(1);
+        const lw = labelWidth || '180px';
+        return `
+          <div class="demo-chart-row" style="grid-template-columns:${lw} 1fr 90px">
+            <span class="demo-chart-label">${label}</span>
+            <div class="demo-chart-track">
+              <div class="demo-chart-bar" style="width:${pct}%;background:${color}"></div>
+            </div>
+            <span class="demo-chart-val">${valStr}</span>
+          </div>`;
+      }
+
+      function cmpRow(label, hcVal, nhcVal, maxVal, hcColor, nhcColor, unit) {
+        const hw = (hcVal  / maxVal * 100).toFixed(1);
+        const nw = (nhcVal / maxVal * 100).toFixed(1);
+        return `
+          <div class="cmp-row">
+            <span class="cmp-row-label">${label}</span>
+            <div class="cmp-sub">
+              <span class="cmp-tag">HC</span>
+              <div class="cmp-track"><div class="cmp-bar" style="width:${hw}%;background:${hcColor}"></div></div>
+              <span class="cmp-val">${hcVal}${unit}</span>
+            </div>
+            <div class="cmp-sub">
+              <span class="cmp-tag">non-HC</span>
+              <div class="cmp-track"><div class="cmp-bar" style="width:${nw}%;background:${nhcColor}"></div></div>
+              <span class="cmp-val">${nhcVal}${unit}</span>
+            </div>
+          </div>`;
+      }
+
+      // ── Section 1: length vs actions/undos ───────────────────────
+      const maxActions = Math.max(...LEN_ACTIONS.map(r => r.mean));
+      const maxUndos   = Math.max(...LEN_ACTIONS.map(r => r.undos));
+      document.getElementById('chart-len-actions').innerHTML =
+        '<div class="demo-chart">' +
+        LEN_ACTIONS.map(r => barRow(r.label + ` (n=${r.n})`, r.mean, maxActions + 10, 'var(--brand)', r.mean.toFixed(1) + ' actions', '160px')).join('') +
+        '</div>';
+      document.getElementById('chart-len-undos').innerHTML =
+        '<div class="demo-chart">' +
+        LEN_ACTIONS.map(r => barRow(r.label + ` (n=${r.n})`, r.undos, maxUndos + 0.5, '#2d7dd2', r.undos.toFixed(1) + ' undos', '160px')).join('') +
+        '</div>';
+
+      // ── Section 2: revised vs unchanged ──────────────────────────
+      document.getElementById('chart-revised-actions').innerHTML =
+        '<div class="demo-chart">' +
+        REVISED_ACTIONS.map(r => barRow(r.label, r.value, 130, r.color, r.value.toFixed(1) + ' actions', '190px')).join('') +
+        '</div>';
+      document.getElementById('chart-revised-undos').innerHTML =
+        '<div class="demo-chart">' +
+        REVISED_UNDOS.map(r => barRow(r.label, r.value, 5, r.color, r.value.toFixed(1) + ' undos', '190px')).join('') +
+        '</div>';
+      document.getElementById('chart-elab').innerHTML =
+        '<div class="demo-chart">' +
+        ELAB.map(r => barRow(r.label, r.value, 50, r.color, `${r.value} attempts`, '180px')).join('') +
+        '</div>';
+
+      // ── Section 3: keyword cards ──────────────────────────────────
+      const kwGrid = document.getElementById('kw-grid');
+      const kwColors = { yes: 'var(--brand)', no: 'rgba(31,34,48,0.3)' };
+      KW_DATA.forEach(kw => {
+        const maxA = Math.max(kw.yes_actions, kw.no_actions);
+        const maxU = Math.max(kw.yes_undos,   kw.no_undos);
+        const yA = (kw.yes_actions / maxA * 100).toFixed(0);
+        const nA = (kw.no_actions  / maxA * 100).toFixed(0);
+        const yU = (kw.yes_undos   / maxU * 100).toFixed(0);
+        const nU = (kw.no_undos    / maxU * 100).toFixed(0);
+        const card = document.createElement('div');
+        card.className = 'kw-card';
+        card.innerHTML = `
+          <p class="kw-card-title">${kw.title}</p>
+          <p class="kw-keywords">${kw.keywords}</p>
+          <p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;">Mean total actions</p>
+          <div class="kw-metric-row">
+            <span class="kw-metric-label">With (n=${kw.yes_n})</span>
+            <div class="kw-metric-track"><div class="kw-metric-bar" style="width:${yA}%;background:var(--brand)"></div></div>
+            <span class="kw-metric-val">${kw.yes_actions.toFixed(1)}</span>
+          </div>
+          <div class="kw-metric-row">
+            <span class="kw-metric-label">Without (n=${kw.no_n})</span>
+            <div class="kw-metric-track"><div class="kw-metric-bar" style="width:${nA}%;background:rgba(31,34,48,0.3)"></div></div>
+            <span class="kw-metric-val">${kw.no_actions.toFixed(1)}</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;margin-top:0.55rem;">Mean undo count</p>
+          <div class="kw-metric-row">
+            <span class="kw-metric-label">With</span>
+            <div class="kw-metric-track"><div class="kw-metric-bar" style="width:${yU}%;background:#2d7dd2"></div></div>
+            <span class="kw-metric-val">${kw.yes_undos.toFixed(1)}</span>
+          </div>
+          <div class="kw-metric-row">
+            <span class="kw-metric-label">Without</span>
+            <div class="kw-metric-track"><div class="kw-metric-bar" style="width:${nU}%;background:rgba(45,125,210,0.35)"></div></div>
+            <span class="kw-metric-val">${kw.no_undos.toFixed(1)}</span>
+          </div>
+        `;
+        kwGrid.appendChild(card);
+      });
+
+      // ── Section 4: HC vs non-HC ───────────────────────────────────
+      const hcColor  = '#2f8f4e';
+      const nhcColor = 'rgba(31,34,48,0.38)';
+      const maxLen = Math.max(...HC_LENGTH.map(r => Math.max(r.hc, r.nhc))) + 3;
+      document.getElementById('chart-hc-length').innerHTML =
+        '<div class="cmp-chart">' +
+        HC_LENGTH.map(r => cmpRow(r.label, r.hc, r.nhc, maxLen, hcColor, nhcColor, ' words')).join('') +
+        '</div>';
+
+      document.getElementById('chart-hc-kw').innerHTML =
+        '<div class="cmp-chart">' +
+        HC_KW.map(r => cmpRow(r.label, r.hc, r.nhc, 100, hcColor, nhcColor, '%')).join('') +
+        '</div>';
+
+      document.getElementById('chart-ttr').innerHTML =
+        '<div class="demo-chart">' +
+        TTR_DATA.map(r => barRow(`${r.label} (n=${r.n})`, r.actions, 110, r.color, `${r.actions} actions · ${r.undos} undos`, '280px')).join('') +
+        '</div>';
+
+      // ── Section 5: attempt degradation ───────────────────────────
+      const maxWords = Math.max(...ATTEMPT_LEN.map(r => r.words)) + 2;
+      document.getElementById('chart-attempt-len').innerHTML =
+        '<div class="demo-chart">' +
+        ATTEMPT_LEN.map(r => barRow(`${r.label} (n=${r.n})`, r.words, maxWords, 'var(--brand)', r.words.toFixed(1) + ' words', '160px')).join('') +
+        '</div>';
+
+      // Grouped keyword chart by attempt
+      const kwColors2 = { rule: 'var(--brand)', spatial: '#2f8f4e', count: '#2d7dd2', unsure: 'rgba(31,34,48,0.4)' };
+      const kwLabels  = { rule: 'Rule', spatial: 'Spatial', count: 'Count', unsure: 'Uncertain' };
+      let kwAttemptHtml = '<div class="cmp-chart">';
+      ATTEMPT_KW.forEach(row => {
+        kwAttemptHtml += `<div class="cmp-row"><span class="cmp-row-label">${row.label}</span>`;
+        ['rule','spatial','count','unsure'].forEach(k => {
+          const w = row[k];
+          kwAttemptHtml += `
+            <div class="cmp-sub">
+              <span class="cmp-tag">${kwLabels[k]}</span>
+              <div class="cmp-track"><div class="cmp-bar" style="width:${w}%;background:${kwColors2[k]}"></div></div>
+              <span class="cmp-val">${w}%</span>
+            </div>`;
+        });
+        kwAttemptHtml += '</div>';
+      });
+      kwAttemptHtml += '</div>';
+      document.getElementById('chart-attempt-kw').innerHTML = kwAttemptHtml;
+    </script>
+  </body>
+</html>
