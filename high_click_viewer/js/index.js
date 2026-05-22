@@ -1,6 +1,17 @@
 (async function initIndex() {
   const container = document.getElementById("participants");
 
+  if (window.location.protocol === "file:") {
+    container.innerHTML = `
+      <div class="tile-link" style="cursor:default;">
+        <p class="id-line">Open via the launcher</p>
+        <p class="meta-line">This viewer loads participant data with fetch(), so opening index.html directly from Finder will fail.</p>
+        <p class="meta-line">Use <strong>high_click_viewer/launch_webpage.command</strong> to start the local server, then open the viewer in your browser.</p>
+      </div>
+    `;
+    return;
+  }
+
   function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
