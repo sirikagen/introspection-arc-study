@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARC-AGI Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">Back to participants</a>
+      <header class="hero compact">
+        <p class="eyebrow">ARC-AGI Browser</p>
+        <h1>Training and Evaluation Gallery</h1>
+        <p class="subtitle">
+          Scroll through compact previews of every task, then click any card to inspect the full train and test grids.
+        </p>
+      </header>
+
+      <section class="card gallery-toolbar">
+        <div>
+          <label class="semantic-label" for="taskSearch">Search task id</label>
+          <input id="taskSearch" class="task-search" type="search" placeholder="e.g. 017c7c7b" autocomplete="off" />
+        </div>
+        <div class="filter-row" role="tablist" aria-label="Task set filter">
+          <button class="filter-button is-active" data-filter="all" type="button">All</button>
+          <button class="filter-button" data-filter="training" type="button">Training</button>
+          <button class="filter-button" data-filter="evaluation" type="button">Evaluation</button>
+        </div>
+        <p id="galleryStatus" class="gallery-status">Loading ARC task list...</p>
+      </section>
+
+      <section class="card gallery-layout">
+        <div>
+          <h2>Selected task</h2>
+          <div id="taskDetail" class="gallery-detail">
+            <p class="gallery-detail-empty">Choose a task card to see the full set of train and test grids here.</p>
+          </div>
+        </div>
+        <div>
+          <h2>Task gallery</h2>
+          <div id="taskGrid" class="task-grid"></div>
+        </div>
+      </section>
+    </main>
+    <script src="js/arc_gallery.js"></script>
+  </body>
+</html>

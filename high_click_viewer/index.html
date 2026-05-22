@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High-Click Participants</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Introspection Replay Viewer</p>
+        <h1>33 High-Click Participants</h1>
+        <p class="subtitle">
+          Click any participant ID to open their solved puzzle list, or
+          <a class="inline-link" href="arc_gallery.html">browse the ARC-AGI training and evaluation gallery</a>.
+        </p>
+      </header>
+      <section class="card">
+        <div class="grid-list site-links">
+          <a class="tile-link training" href="analysis.html">
+            <p class="id-line">Analysis Results</p>
+            <p class="meta-line">High-click identification, off-path meaningfulness, and learning curves.</p>
+          </a>
+          <a class="tile-link training" href="arc_gallery.html">
+            <p class="id-line">ARC-AGI Gallery</p>
+            <p class="meta-line">Browse all 400 training tasks and 400 evaluation tasks visually.</p>
+          </a>
+          <a class="tile-link evaluation" href="participant_solutions.html">
+            <p class="id-line">Participant solutions</p>
+            <p class="meta-line">Completed puzzles, participant IDs, and solved action paths.</p>
+          </a>
+          <a class="tile-link evaluation" href="solution_paths.html">
+            <p class="id-line">Solution Paths</p>
+            <p class="meta-line">Only test pairs, with the final changes and path-step chips.</p>
+          </a>
+          <a class="tile-link evaluation" href="participants_wrong_steps.html">
+            <p class="id-line">Participants' Wrong Steps</p>
+            <p class="meta-line">Participant timelines showing steps that deviate from the final solved solution.</p>
+          </a>
+          <a class="tile-link evaluation" href="off_path_playbyplay.html">
+            <p class="id-line">Off-path play-by-play</p>
+            <p class="meta-line">Participant timelines showing deviations from the required changes path.</p>
+          </a>
+          <a class="tile-link evaluation" href="high_offpath_clickers.html">
+            <p class="id-line">High off-path clickers</p>
+            <p class="meta-line">Participants ranked by total off-path steps, with puzzle-by-puzzle playthroughs.</p>
+          </a>
+        </div>
+      </section>
+      <section class="card">
+        <div id="participants" class="grid-list"></div>
+      </section>
+    </main>
+    <script src="js/index.js"></script>
+  </body>
+</html>

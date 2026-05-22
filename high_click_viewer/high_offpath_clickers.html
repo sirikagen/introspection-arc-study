@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High Off-Path Clickers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">Back to participants</a>
+      <header class="hero compact">
+        <p class="eyebrow">ARC-AGI Browser</p>
+        <h1>High off-path clickers</h1>
+        <p class="subtitle">
+          Participants ordered by total off-path steps across all completed puzzles. Select a participant to review their puzzle-by-puzzle breakdown and identify whether off-path behaviour is persistent.
+        </p>
+      </header>
+
+      <section class="card gallery-toolbar">
+        <p id="hopStatus" class="gallery-status">Loading participant data…</p>
+      </section>
+
+      <section class="card playbyplay-layout">
+        <div>
+          <h2>Participants</h2>
+          <div id="hopParticipantList" class="playbyplay-cards"></div>
+        </div>
+        <div>
+          <h2>Participant detail</h2>
+          <div id="hopDetail">
+            <p class="playbyplay-empty">Select a participant to see their off-path breakdown.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="js/high_offpath_clickers.js"></script>
+  </body>
+</html>

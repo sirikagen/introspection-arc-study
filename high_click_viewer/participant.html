@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Participant Puzzles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page">
+      <a class="back-link" href="index.html">Back to participants</a>
+      <header class="hero compact">
+        <p class="eyebrow">Participant</p>
+        <h1 id="participantTitle">Loading...</h1>
+        <p class="subtitle">Solved puzzle IDs. Click a puzzle to open full replay controls.</p>
+      </header>
+      <section class="card">
+        <div id="puzzles" class="grid-list"></div>
+      </section>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/participant.js"></script>
+  </body>
+</html>

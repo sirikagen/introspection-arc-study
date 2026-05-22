@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Participants' Wrong Steps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">Back to participants</a>
+      <header class="hero compact">
+        <p class="eyebrow">ARC-AGI Browser</p>
+        <h1>Participants' Wrong Steps</h1>
+        <p class="subtitle">
+          Click a puzzle to see the participants who solved it and the steps they took that deviated from the solved solution, in chronological order.
+        </p>
+      </header>
+
+      <section class="card gallery-toolbar">
+        <div>
+          <label class="semantic-label" for="playSearch">Search task id</label>
+          <input id="playSearch" class="task-search" type="search" placeholder="e.g. 017c7c7b" autocomplete="off" />
+        </div>
+        <div class="filter-row" role="tablist" aria-label="Task set filter">
+          <button class="filter-button is-active" data-filter="all" type="button">All</button>
+          <button class="filter-button" data-filter="training" type="button">Training</button>
+          <button class="filter-button" data-filter="evaluation" type="button">Evaluation</button>
+        </div>
+        <div class="filter-row" role="group" aria-label="Participant data filters">
+          <button class="data-filter-button" data-participant-filter="complete" aria-pressed="false" type="button">Complete</button>
+          <button class="data-filter-button" data-participant-filter="solved" aria-pressed="false" type="button">Solved</button>
+          <button class="data-filter-button" data-participant-filter="attemptOne" aria-pressed="false" type="button">Attempt 1</button>
+        </div>
+        <p id="playStatus" class="gallery-status">Loading wrong step timelines...</p>
+      </section>
+
+      <section class="card playbyplay-layout">
+        <div>
+          <h2>Selected task</h2>
+          <div id="playDetail" class="gallery-detail">
+            <p class="playbyplay-empty">Choose a task card to view the wrong steps for each participant.</p>
+          </div>
+        </div>
+        <div>
+          <h2>Puzzle overview</h2>
+          <div id="playGrid" class="task-grid"></div>
+        </div>
+      </section>
+    </main>
+    <script src="js/participants_wrong_steps.js"></script>
+  </body>
+</html>

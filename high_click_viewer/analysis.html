@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Results</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">← Back to overview</a>
+
+      <header class="hero">
+        <p class="eyebrow">Introspection — ARC-AGI</p>
+        <h1>Analysis Results</h1>
+        <p class="subtitle">
+          Three analyses of participant behaviour: high-click identification, off-path meaningfulness, and learning curves across attempts.
+        </p>
+      </header>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 1 — 95th-Percentile High-Click Participants
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">1. 95th-Percentile High-Click Participants</h2>
+          <p class="section-intro">
+            Participants were ranked by mean action count across their solved, complete attempts
+            (<code>solved = true</code>, <code>complete = true</code>). Those in the top 5% and
+            with four or more distinct solved puzzles were identified as high-click participants.
+            The 95th-percentile threshold was <strong>118.8 mean actions per attempt</strong>.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value accent">1,275</span>
+            <span class="stat-label">Participants with ≥ 1 solved, complete attempt</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">4.44</span>
+            <span class="stat-label">Mean solved puzzles per participant (median 4, range 1–10)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">118.8</span>
+            <span class="stat-label">95th-percentile threshold (mean actions / attempt)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">33</span>
+            <span class="stat-label">High-click participants (95th pct, ≥ 4 solved puzzles)</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="section-intro" style="margin-bottom: 0.6rem;">
+            Top 15 participants by mean action count (solved + complete attempts, ≥ 4 puzzles):
+          </p>
+          <div style="overflow-x: auto;">
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Participant ID</th>
+                  <th style="text-align:right">Mean actions</th>
+                  <th style="text-align:right">Total actions</th>
+                  <th style="text-align:right">Attempts</th>
+                  <th style="text-align:right">Puzzles</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="num">1</td><td class="mono">186844c513023d14…</td><td class="num">164.3</td><td class="num">657</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">2</td><td class="mono">22fabcb92d8909e7…</td><td class="num">163.5</td><td class="num">654</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">3</td><td class="mono">b18f26f0d6c59db3…</td><td class="num">157.6</td><td class="num">788</td><td class="num">5</td><td class="num">5</td></tr>
+                <tr><td class="num">4</td><td class="mono">310549a148748e20…</td><td class="num">152.0</td><td class="num">456</td><td class="num">3</td><td class="num">3</td></tr>
+                <tr><td class="num">5</td><td class="mono">b2950e829680cf0f…</td><td class="num">151.8</td><td class="num">607</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">6</td><td class="mono">b565b9251253827e…</td><td class="num">151.0</td><td class="num">453</td><td class="num">3</td><td class="num">3</td></tr>
+                <tr><td class="num">7</td><td class="mono">01b14747ad84d6e0…</td><td class="num">144.5</td><td class="num">578</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">8</td><td class="mono">0954867f72ce8586…</td><td class="num">143.4</td><td class="num">717</td><td class="num">5</td><td class="num">5</td></tr>
+                <tr><td class="num">9</td><td class="mono">3070dc728d89aeb3…</td><td class="num">143.0</td><td class="num">286</td><td class="num">2</td><td class="num">2</td></tr>
+                <tr><td class="num">10</td><td class="mono">b26c49180b83bf94…</td><td class="num">142.8</td><td class="num">571</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">11</td><td class="mono">7cdd9795e41b26aa…</td><td class="num">142.0</td><td class="num">568</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">12</td><td class="mono">7426449648c92ad3…</td><td class="num">140.0</td><td class="num">700</td><td class="num">5</td><td class="num">5</td></tr>
+                <tr><td class="num">13</td><td class="mono">4b9ff461bcb8a879…</td><td class="num">139.2</td><td class="num">557</td><td class="num">4</td><td class="num">4</td></tr>
+                <tr><td class="num">14</td><td class="mono">c6b4b18668656e1e…</td><td class="num">138.7</td><td class="num">1248</td><td class="num">9</td><td class="num">9</td></tr>
+                <tr><td class="num">15</td><td class="mono">3914f6c13e5d791a…</td><td class="num">138.2</td><td class="num">553</td><td class="num">4</td><td class="num">4</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="section-intro" style="margin-top: 0.5rem; font-size: 0.8rem;">
+            Full ranked list: <code>Analysis/results/p95_high_clickers.md</code>
+          </p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 2 — Off-Path Behavior
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">2. Off-Path Behavior: Meaningful or Random?</h2>
+          <p class="section-intro">
+            For each solved attempt, every edit action was classified as <em>aligned</em> (on-path)
+            or <em>off-path</em> by comparing the clicked cell and applied colour against the
+            required-change grid. Three metrics tested whether off-path behaviour is structured
+            rather than random: colour relevance, spatial proximity, and cross-puzzle consistency.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value">1,046</span>
+            <span class="stat-label">Participants with ≥ 1 off-path step (of 1,275 complete)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">11,332</span>
+            <span class="stat-label">Total off-path steps across all participants</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">4</span>
+            <span class="stat-label">Median off-path steps per participant</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">251</span>
+            <span class="stat-label">Maximum off-path steps (single participant)</span>
+          </div>
+        </div>
+
+        <div class="analysis-two-col">
+          <div class="card" style="background: rgba(255,255,255,0.6);">
+            <p style="font-weight:700; margin-bottom: 0.6rem;">Mistake type distribution</p>
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th style="text-align:right">Count</th>
+                  <th style="text-align:right">%</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wrong color (correct cell)</td>
+                  <td class="num">11,280</td>
+                  <td class="num">99.5%</td>
+                </tr>
+                <tr>
+                  <td>Wrong coordinate</td>
+                  <td class="num">52</td>
+                  <td class="num">0.5%</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="section-intro" style="margin-top:0.6rem; font-size:0.82rem;">
+              The overwhelming dominance of wrong-color errors indicates participants reliably
+              identify <em>which</em> cells need to change — their errors lie in colour selection,
+              not spatial reasoning.
+            </p>
+          </div>
+
+          <div class="card" style="background: rgba(255,255,255,0.6);">
+            <p style="font-weight:700; margin-bottom: 0.6rem;">Statistical tests</p>
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th style="text-align:right">Observed</th>
+                  <th style="text-align:right">Baseline</th>
+                  <th style="text-align:right">Δ</th>
+                  <th>p</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="trend-row-positive">
+                  <td>Colour relevance</td>
+                  <td class="num">0.753</td>
+                  <td class="num">0.345</td>
+                  <td class="num">+0.408</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Spatial proximity (dist. to nearest target, cells)</td>
+                  <td class="num">1.06</td>
+                  <td class="num">3.24</td>
+                  <td class="num">−2.18</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                </tr>
+                <tr>
+                  <td>Cross-puzzle consistency (ICC(1,1))</td>
+                  <td class="num" colspan="3">−0.120 — low consistency</td>
+                  <td><span class="sig-badge neutral">—</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="section-intro" style="margin-top:0.6rem; font-size:0.82rem;">
+              Colour relevance and spatial proximity baselines use within-task random sampling.
+              ICC partitions off-path rate variance between vs. within participants.
+            </p>
+          </div>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            Off-path steps use solution-relevant colours at <strong>2.2× the rate expected by chance</strong>
+            (Δ = +0.408, Wilcoxon p &lt; .001), indicating purposeful colour selection even when wrong.
+          </li>
+          <li class="finding-item">
+            Off-path clicks land <strong>3× closer to target cells</strong> than a uniformly random placement
+            (1.06 vs. 3.24 grid cells, p &lt; .001) — participants are working in the right spatial neighbourhood.
+          </li>
+          <li class="finding-item">
+            ICC = −0.120 indicates <strong>low between-participant consistency</strong>; off-path behaviour varies
+            primarily by task difficulty rather than individual style.
+          </li>
+          <li class="finding-item">
+            High off-path participants show modestly lower colour relevance than low off-path participants
+            (Δ = 0.427 vs. 0.436, Mann-Whitney p = .009), suggesting their extra mistakes are slightly
+            less targeted in colour choice.
+          </li>
+        </ul>
+
+        <figure class="analysis-figure">
+          <img src="../Analysis/results/offpath_analysis_plots.png"
+               alt="Four-panel figure: (A) distribution of off-path steps per participant, (B) mistake types for top-20 off-path participants, (C) colour relevance above chance, (D) spatial proximity above chance." />
+          <figcaption>
+            <strong>Figure 1.</strong> Off-path click analysis — all tasks combined.
+            (A) Distribution of total off-path steps per participant — heavily right-skewed with a long tail.
+            (B) Mistake-type breakdown for the top-20 off-path participants: near-universal wrong-color dominance.
+            (C) Per-participant colour relevance delta (observed − random baseline).
+            (D) Per-participant spatial proximity delta (random baseline − observed distance).
+          </figcaption>
+        </figure>
+
+        <div>
+          <p style="font-weight:700; margin-bottom:0.5rem;">Training vs. evaluation task breakdown</p>
+          <p class="section-intro" style="margin-bottom:0.75rem;">
+            All metrics were recomputed separately for the two task types. Both show highly significant
+            colour relevance and spatial proximity above chance. Evaluation tasks produce more off-path
+            steps overall (6,394 vs. 4,938), slightly higher colour relevance (0.778 vs. 0.720),
+            and stronger spatial proximity (Δ = 2.45 vs. 1.88 cells). Wrong-coordinate errors are
+            more common on training tasks (0.7% vs. 0.2%), suggesting marginally more spatial
+            uncertainty on novel evaluation patterns. ICC is negative for both, more so for evaluation
+            (−0.276 vs. −0.039), confirming task features dominate over individual style in both sets.
+          </p>
+          <div style="overflow-x: auto;">
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th style="text-align:right">Training</th>
+                  <th style="text-align:right">Evaluation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Participants with off-path steps</td><td class="num">644</td><td class="num">631</td></tr>
+                <tr><td>Total off-path edit steps</td><td class="num">4,938</td><td class="num">6,394</td></tr>
+                <tr><td>Mean colour relevance (observed)</td><td class="num">0.720</td><td class="num">0.778</td></tr>
+                <tr class="trend-row-positive"><td>Mean colour Δ</td><td class="num">+0.436</td><td class="num">+0.426</td></tr>
+                <tr><td>Colour relevance p</td><td class="num"><span class="sig-badge positive">p &lt; .001</span></td><td class="num"><span class="sig-badge positive">p &lt; .001</span></td></tr>
+                <tr class="trend-row-positive"><td>Mean spatial proximity Δ (cells)</td><td class="num">+1.88</td><td class="num">+2.45</td></tr>
+                <tr><td>Spatial proximity p</td><td class="num"><span class="sig-badge positive">p &lt; .001</span></td><td class="num"><span class="sig-badge positive">p &lt; .001</span></td></tr>
+                <tr><td>% wrong-color errors</td><td class="num">99.3%</td><td class="num">99.8%</td></tr>
+                <tr><td>% wrong-coordinate errors</td><td class="num">0.7%</td><td class="num">0.2%</td></tr>
+                <tr><td>ICC(1,1) cross-puzzle consistency</td><td class="num">−0.039</td><td class="num">−0.276</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <figure class="analysis-figure">
+          <img src="../Analysis/results/offpath_tasktype_comparison.png"
+               alt="Four-panel bar chart comparing training vs evaluation tasks on colour relevance, spatial proximity, mistake types, and ICC." />
+          <figcaption>
+            <strong>Figure 2.</strong> Off-path analysis: training vs. evaluation comparison.
+            (A) Mean colour relevance Δ — above-chance colour selection is significant for both task types.
+            (B) Mean spatial proximity Δ — off-path clicks are closer to target cells than chance for both, more so for evaluation tasks.
+            (C) Mistake type distribution — wrong-color dominates in both; wrong-coordinate is marginally higher for training.
+            (D) ICC(1,1) — negative for both, indicating task features explain more variance than individual style. Asterisks: *** p &lt; .001.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 3 — Learning Curves
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">3. Learning Curves and Action Patterns</h2>
+          <p class="section-intro">
+            Two complementary trajectories were examined: <em>within-task</em> learning
+            (how behaviour changes across repeated attempts at the same puzzle) and
+            <em>across-task</em> learning (how behaviour evolves across different puzzles in session order).
+            Spearman ρ and Wilcoxon signed-rank tests assessed direction, magnitude, and reliability.
+            Effect strength: |ρ| &gt; 0.5 = strong, 0.3–0.5 = moderate, &lt; 0.3 = weak.
+          </p>
+        </div>
+
+        <div class="analysis-two-col">
+          <!-- Within-task -->
+          <div>
+            <p style="font-weight:700; margin-bottom:0.5rem;">Within-task (attempt 1 → 2 → 3)</p>
+            <div class="stat-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:0.75rem;">
+              <div class="stat-card">
+                <span class="stat-value accent">+21.7</span>
+                <span class="stat-label">Mean additional actions per repeated attempt</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">3,487</span>
+                <span class="stat-label">Participant-task pairs with ≥ 2 attempts</span>
+              </div>
+            </div>
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th style="text-align:right">ρ</th>
+                  <th>p</th>
+                  <th>Strength</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="trend-row-negative">
+                  <td>Action count</td>
+                  <td class="num">+1.000</td>
+                  <td><span class="sig-badge negative">p &lt; .001</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr>
+                  <td>Solve rate</td>
+                  <td class="num">+0.500</td>
+                  <td><span class="sig-badge neutral">p = .667</span></td>
+                  <td>—</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Session duration</td>
+                  <td class="num">−1.000</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Edit fraction</td>
+                  <td class="num">−1.000</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Copy-from-input fraction</td>
+                  <td class="num">−1.000</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+                <tr class="trend-row-negative">
+                  <td>Submit fraction</td>
+                  <td class="num">+1.000</td>
+                  <td><span class="sig-badge negative">p &lt; .001</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="section-intro" style="margin-top:0.55rem; font-size:0.82rem;">
+              On later attempts participants use <em>more</em> actions per attempt but spend
+              <em>less</em> total time and rely less on copy-from-input — suggesting escalating
+              exploratory effort rather than faster, more efficient solving.
+            </p>
+          </div>
+
+          <!-- Across-task -->
+          <div>
+            <p style="font-weight:700; margin-bottom:0.5rem;">Across-task (puzzle 1 → 2 → … first attempts)</p>
+            <div class="stat-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:0.75rem;">
+              <div class="stat-card">
+                <span class="stat-value">1,392</span>
+                <span class="stat-label">Participants with ≥ 3 tasks</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value accent">−0.38</span>
+                <span class="stat-label">Mean action slope per task position</span>
+              </div>
+            </div>
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th style="text-align:right">ρ</th>
+                  <th>p</th>
+                  <th>Strength</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="trend-row-positive">
+                  <td>Action count</td>
+                  <td class="num">−0.891</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Solve rate</td>
+                  <td class="num">+0.796</td>
+                  <td><span class="sig-badge positive">p = .006</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Session duration</td>
+                  <td class="num">−0.927</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Copy-from-input fraction</td>
+                  <td class="num">+0.709</td>
+                  <td><span class="sig-badge positive">p = .022</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Reset fraction</td>
+                  <td class="num">+0.782</td>
+                  <td><span class="sig-badge positive">p = .008</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Submit fraction</td>
+                  <td class="num">+0.818</td>
+                  <td><span class="sig-badge positive">p = .004</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Description fraction</td>
+                  <td class="num">+0.830</td>
+                  <td><span class="sig-badge positive">p = .003</span></td>
+                  <td>Strong ↑</td>
+                </tr>
+                <tr class="trend-row-negative">
+                  <td>Other fraction</td>
+                  <td class="num">−0.952</td>
+                  <td><span class="sig-badge negative">p &lt; .001</span></td>
+                  <td>Strong ↓</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="section-intro" style="margin-top:0.55rem; font-size:0.82rem;">
+              Across the task sequence, participants solve more and do so faster — strong evidence
+              of session-level learning. The rising copy-from-input and description fractions suggest
+              strategy adoption: participants increasingly use the input as a starting template and
+              write more annotations as their approach matures.
+            </p>
+          </div>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            <strong>Within-task action count increases</strong> steeply on each retry (+21.7 actions/attempt, ρ = +1.00, p &lt; .001) — participants do not converge on shorter paths when stuck; they elaborate.
+          </li>
+          <li class="finding-item">
+            <strong>Across-task action count decreases</strong> as the session progresses (ρ = −0.89, p &lt; .001), while solve rate rises (ρ = +0.80, p = .006) — a clear signature of global efficiency gains.
+          </li>
+          <li class="finding-item">
+            <strong>Session duration falls monotonically</strong> both within-task (ρ = −1.00) and across tasks (ρ = −0.93, p &lt; .001) — participants work faster regardless of whether they are on a retry or a new puzzle.
+          </li>
+          <li class="finding-item">
+            <strong>Strategy markers increase across tasks:</strong> copy-from-input (ρ = +0.71), reset (ρ = +0.78), submit (ρ = +0.82), and written descriptions (ρ = +0.83) all rise — indicating more structured problem-solving behaviour by the end of a session.
+          </li>
+        </ul>
+
+        <figure class="analysis-figure">
+          <img src="../Analysis/results/learning_trends_plots.png"
+               alt="Eight-panel figure showing learning curve trends across attempts and tasks." />
+          <figcaption>
+            <strong>Figure 3.</strong> Learning-curve and action-pattern trends — all tasks combined.
+            (A) Within-task action count increases monotonically across attempt numbers.
+            (B) Within-task solve rate — no clear monotonic trend.
+            (C) Distribution of within-task slopes; nearly all positive.
+            (D) Across-task mean action count decreases with task position.
+            (E) Across-task solve rate increases with task position.
+            (F) Distribution of across-task slopes; majority negative (improvement).
+            (G) Action-type composition across task positions.
+            (H) Session duration decreases with task position.
+          </figcaption>
+        </figure>
+
+        <div>
+          <p style="font-weight:700; margin-bottom:0.5rem;">Training vs. evaluation task breakdown</p>
+          <p class="section-intro" style="margin-bottom:0.75rem;">
+            The within-task action increase (ρ = +1.00, p &lt; .001) and session duration decrease
+            (ρ = −1.00 training; ρ = −1.00 evaluation, p &lt; .001) replicate equally strongly for
+            both task types. Across-task action count decrease is significant for training
+            (ρ = −0.84, p = .002) but not for evaluation (ρ = −0.70, p = .188), suggesting
+            participants reduce click volume more reliably as they gain experience with training-style
+            patterns. Solve rate trend across tasks is positive for both but reaches significance
+            for neither in isolation, likely due to reduced statistical power when splitting the sample.
+          </p>
+          <div style="overflow-x: auto;">
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th style="text-align:right">Training ρ</th>
+                  <th>Training p</th>
+                  <th style="text-align:right">Evaluation ρ</th>
+                  <th>Evaluation p</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="trend-row-negative">
+                  <td>Within-task action count</td>
+                  <td class="num">+1.000</td>
+                  <td><span class="sig-badge negative">p &lt; .001</span></td>
+                  <td class="num">+1.000</td>
+                  <td><span class="sig-badge negative">p &lt; .001</span></td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Across-task action count</td>
+                  <td class="num">−0.842</td>
+                  <td><span class="sig-badge positive">p = .002</span></td>
+                  <td class="num">−0.700</td>
+                  <td><span class="sig-badge neutral">p = .188</span></td>
+                </tr>
+                <tr>
+                  <td>Across-task solve rate</td>
+                  <td class="num">+0.492</td>
+                  <td><span class="sig-badge neutral">p = .148</span></td>
+                  <td class="num">+0.667</td>
+                  <td><span class="sig-badge neutral">p = .219</span></td>
+                </tr>
+                <tr class="trend-row-positive">
+                  <td>Across-task session duration</td>
+                  <td class="num">−0.879</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                  <td class="num">−1.000</td>
+                  <td><span class="sig-badge positive">p &lt; .001</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <figure class="analysis-figure">
+          <img src="../Analysis/results/learning_tasktype_comparison.png"
+               alt="Eight-panel figure comparing learning trends for training and evaluation tasks separately." />
+          <figcaption>
+            <strong>Figure 4.</strong> Learning trends: training vs. evaluation tasks.
+            Top row (A–D): training tasks. Bottom row (E–H): evaluation tasks.
+            Left to right: within-task action count, across-task action count, across-task solve rate, session duration.
+            The within-task escalation and duration decrease are consistent across both task types.
+            The across-task action count decrease is clearer for training tasks.
+          </figcaption>
+        </figure>
+      </section>
+
+    </main>
+  </body>
+</html>

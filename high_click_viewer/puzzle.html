@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puzzle Replay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a id="participantBack" class="back-link" href="index.html">Back</a>
+      <header class="hero compact">
+        <p class="eyebrow">Puzzle Replay</p>
+        <h1 id="puzzleTitle">Loading...</h1>
+        <p id="puzzleMeta" class="subtitle"></p>
+      </header>
+
+      <section class="card replay-grid-wrap">
+        <div>
+          <h2>Example Input-Output Pairs</h2>
+          <div id="examplesPane" class="examples-pane"></div>
+        </div>
+        <div>
+          <h2>Input Grid</h2>
+          <div id="inputGrid" class="arc-grid"></div>
+        </div>
+        <div>
+          <h2>Participant Output</h2>
+          <div id="outputGrid" class="arc-grid"></div>
+        </div>
+      </section>
+
+      <section class="card controls">
+        <div class="timeline-row">
+          <input id="frameSlider" type="range" min="0" value="0" step="1" />
+          <p id="frameLabel">Frame 0 / 0</p>
+        </div>
+        <div class="button-row">
+          <button id="firstBtn">First</button>
+          <button id="prevBtn">Prev</button>
+          <button id="playPauseBtn">Play</button>
+          <button id="nextBtn">Next</button>
+          <button id="lastBtn">Last</button>
+        </div>
+        <div class="speed-row">
+          <label for="speedSelect">Speed</label>
+          <select id="speedSelect">
+            <option value="800">0.5x</option>
+            <option value="500" selected>1x</option>
+            <option value="280">2x</option>
+            <option value="160">3x</option>
+          </select>
+        </div>
+        <div class="meta-row">
+          <p id="actionInfo"></p>
+        </div>
+      </section>
+
+      <section class="card semantic-panel">
+        <h2>Semantic Descriptions</h2>
+        <p class="semantic-label">First written description</p>
+        <p id="firstDescription" class="semantic-text"></p>
+        <p class="semantic-label">Last written description</p>
+        <p id="lastDescription" class="semantic-text"></p>
+      </section>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/puzzle.js"></script>
+  </body>
+</html>
