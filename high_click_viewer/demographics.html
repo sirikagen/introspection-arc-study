@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demographics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Chart base ─────────────────────────────── */
+      .demo-chart          { display: grid; gap: 0.52rem; }
+      .demo-chart-row      { display: grid; grid-template-columns: 180px 1fr 90px; align-items: center; gap: 0.6rem; }
+      .demo-chart-label    { font-size: 0.83rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .demo-chart-track    { height: 22px; background: rgba(31,34,48,0.07); border-radius: 5px; overflow: hidden; }
+      .demo-chart-bar      { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
+      .demo-chart-val      { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--muted); text-align: right; }
+      .demo-chart-n        { font-size: 0.72rem; opacity: 0.75; }
+
+      /* ── Comparison chart (All vs HC) ────────────── */
+      .cmp-chart           { display: grid; gap: 0.9rem; }
+      .cmp-row             { display: grid; gap: 0.22rem; }
+      .cmp-row-label       { font-size: 0.84rem; font-weight: 600; }
+      .cmp-sub             { display: grid; grid-template-columns: 42px 1fr 52px; align-items: center; gap: 0.5rem; }
+      .cmp-tag             { font-size: 0.72rem; color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+      .cmp-track           { height: 17px; background: rgba(31,34,48,0.07); border-radius: 4px; overflow: hidden; }
+      .cmp-bar             { height: 100%; border-radius: 4px; }
+      .cmp-bar.all         { background: rgba(31,34,48,0.38); }
+      .cmp-bar.hc          { background: #2f8f4e; }
+      .cmp-val             { font-family: "IBM Plex Mono", monospace; font-size: 0.76rem; text-align: right; }
+
+      /* ── Off-path chart ──────────────────────────── */
+      .offpath-chart       { display: grid; gap: 0.52rem; }
+      .offpath-row         { display: grid; grid-template-columns: 180px 1fr 90px; align-items: center; gap: 0.6rem; }
+      .offpath-label       { font-size: 0.83rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .offpath-track       { height: 22px; background: rgba(31,34,48,0.07); border-radius: 5px; overflow: hidden; }
+      .offpath-bar         { height: 100%; border-radius: 5px; background: #2f8f4e; }
+      .offpath-val         { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--muted); text-align: right; }
+      .offpath-n           { font-size: 0.72rem; opacity: 0.75; }
+
+      /* ── Misc ────────────────────────────────────── */
+      .chart-title         { font-weight: 700; margin-bottom: 0.55rem; font-size: 0.9rem; }
+      .chart-note          { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+      .legend              { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.55rem; font-size: 0.8rem; }
+      .legend-item         { display: flex; align-items: center; gap: 0.35rem; }
+      .legend-dot          { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+      .charts-two-col      { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 760px) {
+        .charts-two-col    { grid-template-columns: 1fr; }
+        .demo-chart-row,
+        .offpath-row       { grid-template-columns: 130px 1fr 80px; }
+        .cmp-sub           { grid-template-columns: 36px 1fr 48px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <main class="page wide">
+      <a class="back-link" href="index.html">← Back to overview</a>
+
+      <header class="hero">
+        <p class="eyebrow">Introspection — ARC-AGI</p>
+        <h1>Participant Demographics</h1>
+        <p class="subtitle">
+          Overview of the sample, followed by two analyses: whether demographic factors
+          predict high-click status, and whether they relate to the likelihood of making off-path steps.
+        </p>
+      </header>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 1 — Overview
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">1. Demographics Overview</h2>
+          <p class="section-intro">
+            1,757 unique participants contributed demographic data. Age outliers (values below 16 or above 90)
+            were excluded from age analyses, leaving 1,740 valid entries. All other fields are shown as
+            reported; "Prefer not to say" responses are included for completeness but excluded from
+            comparative analyses.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value accent">1,757</span>
+            <span class="stat-label">Total participants with demographic data</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">40.4</span>
+            <span class="stat-label">Mean age in years (range 18–78, n = 1,740)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">54.4%</span>
+            <span class="stat-label">Identify as Man (43.8% Woman, 1.0% Non-binary)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">71.7%</span>
+            <span class="stat-label">Identify as White (of those providing race data)</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Age distribution</p>
+            <div id="chart-age"></div>
+            <p class="chart-note">n = 1,740 valid responses. Three entries removed (ages 1, 1980, 3838).</p>
+          </div>
+          <div>
+            <p class="chart-title">Gender distribution</p>
+            <div id="chart-gender"></div>
+            <p class="chart-note">n = 1,745 responses. "Man"/"male" and "Woman"/"female" merged.</p>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Education level</p>
+            <div id="chart-edu"></div>
+            <p class="chart-note">n = 1,478 responses (excludes "Prefer not to say").</p>
+          </div>
+          <div>
+            <p class="chart-title">Race / ethnicity</p>
+            <div id="chart-race"></div>
+            <p class="chart-note">n = 1,462 responses. Multi-group selections collapsed to "Multiracial".</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 2 — High-Click Participant Profile
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">2. High-Click Participants: Demographic Profile</h2>
+          <p class="section-intro">
+            The 33 high-click participants (≥ 95th percentile mean actions, ≥ 4 solved puzzles) are
+            compared against the full sample on gender, education, age, and race. Because the
+            high-click group is small (n = 33), these comparisons are descriptive — differences
+            may not reach statistical significance, but they point to potentially interesting patterns.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value accent">33</span>
+            <span class="stat-label">High-click participants (all have demographic data)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">40.3</span>
+            <span class="stat-label">Mean age of HC participants (vs 39.6 overall — negligible difference)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">54.8%</span>
+            <span class="stat-label">HC participants identifying as Woman (vs 43.8% overall)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">6.9%</span>
+            <span class="stat-label">HC with doctorate (vs 2.7% overall — 2.5× overrepresentation)</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Gender: HC vs all participants (%)</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>All participants</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>High-click (HC)</span>
+            </div>
+            <div id="cmp-gender"></div>
+            <p class="chart-note">HC n = 31 with gender data; all n = 1,745.</p>
+          </div>
+          <div>
+            <p class="chart-title">Education: HC vs all participants (%)</p>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:rgba(31,34,48,0.38)"></span>All participants</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#2f8f4e"></span>High-click (HC)</span>
+            </div>
+            <div id="cmp-edu"></div>
+            <p class="chart-note">HC n = 29 with education data; all n = 1,469.</p>
+          </div>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            <strong>Gender skew:</strong> Women make up 54.8% of high-click participants compared to 43.8% overall, suggesting women are modestly overrepresented among exploratory clickers. Non-binary participants are also overrepresented (6.5% vs 1.0%).
+          </li>
+          <li class="finding-item">
+            <strong>No age effect:</strong> HC mean age (40.3 years) is virtually identical to the overall mean (39.6 years), spanning age groups 25–34 through 55–64 evenly.
+          </li>
+          <li class="finding-item">
+            <strong>Doctorate overrepresentation:</strong> 6.9% of HC participants hold a doctorate (vs 2.7% overall — 2.5× the base rate), while graduate-degree holders are underrepresented (6.9% vs 15.7%). The majority of HC participants (48.3%) hold undergraduate degrees, mirroring the sample composition.
+          </li>
+          <li class="finding-item">
+            <strong>Race broadly proportional:</strong> 72.4% of HC participants identify as White (vs 71.7% overall). Asian participants are slightly overrepresented (10.3% vs 6.9%), while Black/African American participants are underrepresented (3.4% vs 10.1%), though the small HC sample size limits interpretation.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SECTION 3 — Off-Path Steps by Demographics
+           ══════════════════════════════════════════════════ -->
+      <section class="card analysis-section">
+        <div>
+          <h2 class="section-heading">3. Off-Path Steps by Demographic Group</h2>
+          <p class="section-intro">
+            For each of the 1,275 participants with at least one solved, complete attempt, off-path
+            behaviour was characterised as the mean number of off-path edit steps per solved task.
+            The charts below show how this metric varies across gender, age group, and education level.
+            Higher values indicate more exploratory or error-prone clicking per puzzle.
+          </p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value">1,275</span>
+            <span class="stat-label">Participants with off-path data and demographics</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">2.25</span>
+            <span class="stat-label">Overall mean off-path steps per task (all participants)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value accent">3.44</span>
+            <span class="stat-label">Highest group mean — participants with a doctorate</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1.89</span>
+            <span class="stat-label">Lowest group mean — participants aged 45–54</span>
+          </div>
+        </div>
+
+        <div class="charts-two-col">
+          <div>
+            <p class="chart-title">Mean off-path steps per task — by gender</p>
+            <div id="offpath-gender"></div>
+            <p class="chart-note">Max shown = 4.0. Non-binary n = 14; small sample, interpret with caution.</p>
+          </div>
+          <div>
+            <p class="chart-title">Mean off-path steps per task — by age group</p>
+            <div id="offpath-age"></div>
+            <p class="chart-note">Max shown = 4.0. Oldest group (65+) n = 23; interpret with caution.</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="chart-title">Mean off-path steps per task — by education level</p>
+          <div id="offpath-edu"></div>
+          <p class="chart-note">
+            Education ordered from lowest to highest qualification. Max shown = 4.0.
+            Doctorate n = 28; technical college n = 131.
+          </p>
+        </div>
+
+        <ul class="finding-list">
+          <li class="finding-item">
+            <strong>Gender — modest differences:</strong> Non-binary participants average 3.22 off-path steps per task, compared to 2.40 for women and 2.16 for men. Women make slightly more off-path errors than men across the board. The non-binary finding is based on n = 14 and should be treated cautiously.
+          </li>
+          <li class="finding-item">
+            <strong>Age — U-shaped pattern:</strong> The youngest group (18–24) makes the most off-path steps per task (3.32), efficiency improves steadily through to 45–54 (1.89 — the most accurate group), then rises again at 55–64 (2.59) and 65+ (2.98). This suggests a performance peak in middle age, with more exploratory behavior at both ends of the age range.
+          </li>
+          <li class="finding-item">
+            <strong>Education — non-linear relationship:</strong> Off-path frequency does not decrease monotonically with education. Doctoral participants have the highest mean (3.44), followed by technical college (2.75), while high school diploma holders are the most on-path (2.11). This suggests higher education is associated with more exploratory problem-solving, not simply greater accuracy.
+          </li>
+          <li class="finding-item">
+            <strong>Overall interpretation:</strong> Demographic groups that tend toward more off-path steps (young adults, doctoral-level participants, non-binary respondents) may explore the solution space more actively — consistent with the earlier finding that off-path behaviour reflects structured exploration rather than random error.
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <script>
+      // ── Data ──────────────────────────────────────────────────────
+      const AGE_DIST = [
+        { label: '18–24', pct: 3.3,  n: 58 },
+        { label: '25–34', pct: 29.6, n: 515 },
+        { label: '35–44', pct: 38.0, n: 661 },
+        { label: '45–54', pct: 17.1, n: 297 },
+        { label: '55–64', pct: 9.0,  n: 157 },
+        { label: '65+',   pct: 3.0,  n: 52 },
+      ];
+
+      const GENDER_DIST = [
+        { label: 'Man',              pct: 54.4, n: 949 },
+        { label: 'Woman',            pct: 43.8, n: 764 },
+        { label: 'Non-binary',       pct: 1.0,  n: 17 },
+        { label: 'Other / Prefer not to say', pct: 0.9, n: 15 },
+      ];
+
+      const EDU_DIST = [
+        { label: 'No formal qualifications', pct: 0.2,  n: 3 },
+        { label: 'Secondary education',      pct: 1.1,  n: 16 },
+        { label: 'High school diploma',      pct: 20.9, n: 307 },
+        { label: 'Technical college',        pct: 13.1, n: 192 },
+        { label: 'Undergraduate degree',     pct: 46.3, n: 681 },
+        { label: 'Graduate degree',          pct: 15.7, n: 230 },
+        { label: 'Doctorate',                pct: 2.7,  n: 40 },
+      ];
+
+      const RACE_DIST = [
+        { label: 'White',                     pct: 71.7, n: 1048 },
+        { label: 'Black / African American',  pct: 10.1, n: 148 },
+        { label: 'Multiracial',               pct: 7.0,  n: 103 },
+        { label: 'Asian',                     pct: 6.9,  n: 101 },
+        { label: 'Hispanic / Latinx',         pct: 3.8,  n: 55 },
+        { label: 'Native American',           pct: 0.3,  n: 5 },
+        { label: 'Middle Eastern / N. African', pct: 0.1, n: 2 },
+      ];
+
+      const GENDER_CMP = [
+        { label: 'Man',        all: 54.4, hc: 38.7 },
+        { label: 'Woman',      all: 43.8, hc: 54.8 },
+        { label: 'Non-binary', all: 1.0,  hc: 6.5 },
+      ];
+
+      const EDU_CMP = [
+        { label: 'High school diploma',  all: 20.9, hc: 20.7 },
+        { label: 'Technical college',    all: 13.1, hc: 17.2 },
+        { label: 'Undergraduate degree', all: 46.3, hc: 48.3 },
+        { label: 'Graduate degree',      all: 15.7, hc: 6.9 },
+        { label: 'Doctorate',            all: 2.7,  hc: 6.9 },
+      ];
+
+      const OFFPATH_GENDER = [
+        { label: 'Man',        n: 729, mean: 2.16 },
+        { label: 'Woman',      n: 509, mean: 2.40 },
+        { label: 'Non-binary', n: 14,  mean: 3.22 },
+      ];
+
+      const OFFPATH_AGE = [
+        { label: '18–24', n: 44,  mean: 3.32 },
+        { label: '25–34', n: 388, mean: 2.43 },
+        { label: '35–44', n: 490, mean: 2.09 },
+        { label: '45–54', n: 208, mean: 1.89 },
+        { label: '55–64', n: 108, mean: 2.59 },
+        { label: '65+',   n: 23,  mean: 2.98 },
+      ];
+
+      const OFFPATH_EDU = [
+        { label: 'Secondary education',  n: 12,  mean: 2.23 },
+        { label: 'High school diploma',  n: 226, mean: 2.11 },
+        { label: 'Technical college',    n: 131, mean: 2.75 },
+        { label: 'Undergraduate degree', n: 521, mean: 2.41 },
+        { label: 'Graduate degree',      n: 161, mean: 2.39 },
+        { label: 'Doctorate',            n: 28,  mean: 3.44 },
+      ];
+
+      // ── Renderers ─────────────────────────────────────────────────
+      function renderDemoChart(containerId, rows, color) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const max = Math.max(...rows.map(r => r.pct));
+        const wrap = document.createElement('div');
+        wrap.className = 'demo-chart';
+        rows.forEach(r => {
+          const barW = (r.pct / max * 100).toFixed(1);
+          const row = document.createElement('div');
+          row.className = 'demo-chart-row';
+          row.innerHTML = `
+            <span class="demo-chart-label" title="${r.label}">${r.label}</span>
+            <div class="demo-chart-track">
+              <div class="demo-chart-bar" style="width:${barW}%;background:${color}"></div>
+            </div>
+            <span class="demo-chart-val">${r.pct}% <span class="demo-chart-n">(${r.n.toLocaleString()})</span></span>
+          `;
+          wrap.appendChild(row);
+        });
+        el.appendChild(wrap);
+      }
+
+      function renderCmpChart(containerId, rows) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const wrap = document.createElement('div');
+        wrap.className = 'cmp-chart';
+        rows.forEach(r => {
+          const allW = r.all.toFixed(1);
+          const hcW  = r.hc.toFixed(1);
+          const row = document.createElement('div');
+          row.className = 'cmp-row';
+          row.innerHTML = `
+            <span class="cmp-row-label">${r.label}</span>
+            <div class="cmp-sub">
+              <span class="cmp-tag">All</span>
+              <div class="cmp-track"><div class="cmp-bar all" style="width:${allW}%"></div></div>
+              <span class="cmp-val">${allW}%</span>
+            </div>
+            <div class="cmp-sub">
+              <span class="cmp-tag">HC</span>
+              <div class="cmp-track"><div class="cmp-bar hc" style="width:${hcW}%"></div></div>
+              <span class="cmp-val">${hcW}%</span>
+            </div>
+          `;
+          wrap.appendChild(row);
+        });
+        el.appendChild(wrap);
+      }
+
+      function renderOffpathChart(containerId, rows, maxVal) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const wrap = document.createElement('div');
+        wrap.className = 'offpath-chart';
+        rows.forEach(r => {
+          const barW = (r.mean / maxVal * 100).toFixed(1);
+          const row = document.createElement('div');
+          row.className = 'offpath-row';
+          row.innerHTML = `
+            <span class="offpath-label" title="${r.label}">${r.label}</span>
+            <div class="offpath-track">
+              <div class="offpath-bar" style="width:${barW}%"></div>
+            </div>
+            <span class="offpath-val">${r.mean.toFixed(2)} <span class="offpath-n">(n=${r.n})</span></span>
+          `;
+          wrap.appendChild(row);
+        });
+        el.appendChild(wrap);
+      }
+
+      // ── Render all charts ──────────────────────────────────────────
+      renderDemoChart('chart-age',    AGE_DIST,    'var(--brand)');
+      renderDemoChart('chart-gender', GENDER_DIST, 'var(--brand)');
+      renderDemoChart('chart-edu',    EDU_DIST,    'var(--brand)');
+      renderDemoChart('chart-race',   RACE_DIST,   'var(--brand)');
+
+      renderCmpChart('cmp-gender', GENDER_CMP);
+      renderCmpChart('cmp-edu',    EDU_CMP);
+
+      renderOffpathChart('offpath-gender', OFFPATH_GENDER, 4.0);
+      renderOffpathChart('offpath-age',    OFFPATH_AGE,    4.0);
+      renderOffpathChart('offpath-edu',    OFFPATH_EDU,    4.0);
+    </script>
+  </body>
+</html>
